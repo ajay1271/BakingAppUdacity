@@ -1,8 +1,8 @@
 package facebooklogintest.cavepass.com.bakingapp.API;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
+
+import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 
 /**
  * Created by Ajay on 12-01-2018.
@@ -10,7 +10,6 @@ import java.util.List;
 
 public class RecipeApiReq {
 
-    @SerializedName("results")
     private List<ApiResponce> results;
 
     public List<ApiResponce> getResults() {

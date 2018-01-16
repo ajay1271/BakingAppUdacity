@@ -1,9 +1,8 @@
 
-package facebooklogintest.cavepass.com.bakingapp.API;
+package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 public class Step implements Parcelable
 {

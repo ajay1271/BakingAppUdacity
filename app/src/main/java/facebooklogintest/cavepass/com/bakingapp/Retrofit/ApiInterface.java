@@ -1,7 +1,9 @@
 package facebooklogintest.cavepass.com.bakingapp.Retrofit;
 
 
-import facebooklogintest.cavepass.com.bakingapp.API.RecipeApiReq;
+import java.util.List;
+
+import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 import retrofit2.Call;
 import retrofit2.http.GET;
 
@@ -12,6 +14,6 @@ import retrofit2.http.GET;
 public interface ApiInterface {
 
     @GET("baking.json")
-    Call<RecipeApiReq> getResponce();
+    Call<List<ApiResponce>> getResponce();
 
 }

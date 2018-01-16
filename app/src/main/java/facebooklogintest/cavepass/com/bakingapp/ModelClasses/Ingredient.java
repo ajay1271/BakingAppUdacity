@@ -1,14 +1,13 @@
 
-package facebooklogintest.cavepass.com.bakingapp.API;
+package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 public class Ingredient implements Parcelable
 {
 
-    private Integer quantity;
+    private float quantity;
     private String measure;
     private String ingredient;
     public final static Parcelable.Creator<Ingredient> CREATOR = new Creator<Ingredient>() {
@@ -29,7 +28,7 @@ public class Ingredient implements Parcelable
     ;
 
     protected Ingredient(Parcel in) {
-        this.quantity = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.quantity = ((float) in.readValue((Integer.class.getClassLoader())));
         this.measure = ((String) in.readValue((String.class.getClassLoader())));
         this.ingredient = ((String) in.readValue((String.class.getClassLoader())));
     }
@@ -37,7 +36,7 @@ public class Ingredient implements Parcelable
     public Ingredient() {
     }
 
-    public Integer getQuantity() {
+    public float getQuantity() {
         return quantity;
     }
 

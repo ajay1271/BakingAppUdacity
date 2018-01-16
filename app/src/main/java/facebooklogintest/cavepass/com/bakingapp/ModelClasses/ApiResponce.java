@@ -1,10 +1,9 @@
 
-package facebooklogintest.cavepass.com.bakingapp.API;
+package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 
 import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
 public class ApiResponce implements Parcelable
 {
@@ -35,8 +34,8 @@ public class ApiResponce implements Parcelable
     protected ApiResponce(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.ingredients, (facebooklogintest.cavepass.com.bakingapp.API.Ingredient.class.getClassLoader()));
-        in.readList(this.steps, (facebooklogintest.cavepass.com.bakingapp.API.Step.class.getClassLoader()));
+        in.readList(this.ingredients, (Ingredient.class.getClassLoader()));
+        in.readList(this.steps, (Step.class.getClassLoader()));
         this.servings = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.image = ((String) in.readValue((String.class.getClassLoader())));
     }
