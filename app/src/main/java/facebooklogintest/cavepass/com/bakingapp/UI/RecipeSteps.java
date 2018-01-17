@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class RecipeSteps extends AppCompatActivity {
 
     int index;
     ArrayList<ApiResponce> list;
+    ApiResponce object;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -29,7 +31,20 @@ public class RecipeSteps extends AppCompatActivity {
 
         setContentView(R.layout.ingredients_steps);
 
-        ApiResponce object  = (ApiResponce) getIntent().getExtras().get("list");
+//       index = (int)getIntent().getExtras().get("list");
+    if(getIntent().getParcelableExtra("object")!=null){
+
+        Log.e("At RecipeStpes"," Not null");
+
+
+    }
+
+    else{
+
+
+        Log.e("At RecipeStpes","  null");
+
+    }
 
 
 

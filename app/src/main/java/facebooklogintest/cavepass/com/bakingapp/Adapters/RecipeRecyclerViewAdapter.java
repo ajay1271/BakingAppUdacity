@@ -2,6 +2,7 @@ package facebooklogintest.cavepass.com.bakingapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,22 +52,14 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
        final int pos = position;
 
-        Log.e("image","Entered ");
+
+
+        Log.e("image","Entered with position "+position);
         Log.e("Image Address",""+apiResponces.size());
 
         holder.recipeName.setText(list.get(position).getName());
 
-        holder.recipeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                Intent i = new Intent(context,RecipeSteps.class);
-
-               i.putExtra("list",list.get(pos));
-                context.startActivity(i);
-
-            }
-        });
 
     }
 
@@ -79,6 +72,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         ImageView recipeImage;
         TextView recipeName;
+        int pos;
+
 
 
         public MyViewHolder(View itemView) {
@@ -86,6 +81,32 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
           recipeImage = itemView.findViewById(R.id.recipe_image);
           recipeName = itemView.findViewById(R.id.recipeName);
+
+         recipeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(context,RecipeSteps.class);
+
+                    Log.e("position",""+pos);
+
+                    if(list.get(getLayoutPosition())!=null){
+
+                        Log.e("OBJECT IS ", " NOT NULL");
+
+                    }
+
+                    else{
+
+                        Log.e("OBJECT IS ", " NULL");
+
+                    }
+
+                    i.putExtra("object",list.get(getLayoutPosition()) );
+                    context.startActivity(i);
+
+                }
+            });
 
         }
     }
