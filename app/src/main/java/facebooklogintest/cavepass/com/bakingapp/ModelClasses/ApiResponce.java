@@ -1,53 +1,53 @@
 
 package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 
+import java.util.ArrayList;
 import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class ApiResponce implements Parcelable
-{
+public class ApiResponce implements Parcelable {
 
-    private Integer id;
+    private int id;
     private String name;
-    private List<Ingredient> ingredients = null;
-    private List<Step> steps = null;
-    private Integer servings;
     private String image;
-    public final static Parcelable.Creator<ApiResponce> CREATOR = new Creator<ApiResponce>() {
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<Step> steps;
 
 
-        @SuppressWarnings({
-            "unchecked"
-        })
+    public ApiResponce(int id, String name, ArrayList<Ingredient> ingredients, ArrayList<Step> steps) {
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.steps = steps;
+    }
+
+
+    protected ApiResponce(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        ingredients = in.createTypedArrayList(Ingredient.CREATOR);
+        steps = in.createTypedArrayList(Step.CREATOR);
+        this.image = in.readString();
+    }
+
+    public static final Creator<ApiResponce> CREATOR = new Creator<ApiResponce>() {
+        @Override
         public ApiResponce createFromParcel(Parcel in) {
             return new ApiResponce(in);
         }
 
+        @Override
         public ApiResponce[] newArray(int size) {
-            return (new ApiResponce[size]);
+            return new ApiResponce[size];
         }
+    };
 
-    }
-    ;
-
-    protected ApiResponce(Parcel in) {
-        this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.name = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.ingredients, (Ingredient.class.getClassLoader()));
-        in.readList(this.steps, (Step.class.getClassLoader()));
-        this.servings = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.image = ((String) in.readValue((String.class.getClassLoader())));
-    }
-
-    public ApiResponce() {
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -59,49 +59,40 @@ public class ApiResponce implements Parcelable
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<Step> getSteps() {
+    public ArrayList<Step> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(ArrayList<Step> steps) {
         this.steps = steps;
     }
-
-    public Integer getServings() {
-        return servings;
-    }
-
-    public void setServings(Integer servings) {
-        this.servings = servings;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getImage() {
         return image;
     }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(id);
-        dest.writeValue(name);
-        dest.writeList(ingredients);
-        dest.writeList(steps);
-        dest.writeValue(servings);
-        dest.writeValue(image);
-    }
-
+    @Override
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeTypedList(ingredients);
+        dest.writeTypedList(steps);
+        dest.writeString(image);
+
+    }
 }

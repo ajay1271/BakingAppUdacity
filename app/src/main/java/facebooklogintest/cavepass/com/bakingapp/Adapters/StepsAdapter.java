@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
+import facebooklogintest.cavepass.com.bakingapp.ModelClasses.Step;
 import facebooklogintest.cavepass.com.bakingapp.R;
 
 /**
@@ -19,13 +20,13 @@ import facebooklogintest.cavepass.com.bakingapp.R;
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder> {
 
     Context context;
-    int index;
-    List<ApiResponce> list;
 
-    public StepsAdapter(Context context, List<ApiResponce> list, int index){
+    List<Step> list;
+
+    public StepsAdapter(Context context, List<Step> list){
 
         this.context = context;
-        this.index = index;
+
         this.list = list;
 
     }
@@ -35,28 +36,28 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        View view = layoutInflater.inflate(R.layout.steps,parent,false);
+      View view = layoutInflater.inflate(R.layout.steps,parent,false);
 
 
-        return new MyViewHolder(view);
+        return new MyViewHolder(view) ;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        holder.stepsDescription.setText(list.get(index).getSteps().get(position).getShortDescription());
+        holder.stepsDescription.setText(list.get(position).getDescription());
 
     }
 
     @Override
     public int getItemCount() {
-        return 100;
+        return list.size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
 
-        TextView stepsNumber,stepsDescription;
+        TextView stepsDescription;
 
 
         public MyViewHolder(View itemView) {

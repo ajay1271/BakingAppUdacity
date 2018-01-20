@@ -22,7 +22,7 @@ import facebooklogintest.cavepass.com.bakingapp.Retrofit.ApiInterface;
 public class RecipeSteps extends AppCompatActivity {
 
     int index;
-    ArrayList<ApiResponce> list;
+    ArrayList<ApiResponce> list = new ArrayList<>();
     ApiResponce object;
 
     @Override
@@ -31,31 +31,25 @@ public class RecipeSteps extends AppCompatActivity {
 
         setContentView(R.layout.ingredients_steps);
 
-//       index = (int)getIntent().getExtras().get("list");
-    if(getIntent().getParcelableExtra("object")!=null){
-
-        Log.e("At RecipeStpes"," Not null");
+    //  index = (int)getIntent().getExtras().get("list");
+          object = (ApiResponce) getIntent().getExtras().get("object");
 
 
-    }
-
-    else{
-
-
-        Log.e("At RecipeStpes","  null");
-
-    }
-
-
-
-/*
-        RecyclerView stepsRecyclerView = findViewById(R.id.steps);
         RecyclerView ingredientsRecyclerView = findViewById(R.id.ingredients);
-        stepsRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
-        stepsRecyclerView.setAdapter(new IngredientsAdapter(this,list,index));
-        ingredientsRecyclerView.setAdapter(new StepsAdapter(this,list,index));
-*/
+        ingredientsRecyclerView.setNestedScrollingEnabled(false);
+        ingredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        ingredientsRecyclerView.setAdapter(new IngredientsAdapter(this,object.getIngredients()));
+
+
+
+        RecyclerView stepsRecyclerView = findViewById(R.id.Steps);
+        stepsRecyclerView.setNestedScrollingEnabled(false);
+        stepsRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+
+        stepsRecyclerView.setAdapter(new StepsAdapter(this,object.getSteps()));
+
+
 
     }
 }

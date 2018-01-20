@@ -26,7 +26,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     Context context;
     List<ApiResponce> list ;
-    ArrayList<ApiResponce> apiResponces;
+    ArrayList<ApiResponce> apiResponces ;
 
    public RecipeRecyclerViewAdapter(Context context, List<ApiResponce> list){
 
@@ -102,7 +102,9 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
                     }
 
-                    i.putExtra("object",list.get(getLayoutPosition()) );
+
+
+                    i.putExtra("object",list.get(getLayoutPosition()));
                     context.startActivity(i);
 
                 }
