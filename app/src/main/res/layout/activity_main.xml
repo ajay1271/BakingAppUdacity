@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context="facebooklogintest.cavepass.com.bakingapp.UI.MainActivity">
 
-   <android.support.v7.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/recyclerView_recipes">
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerView_recipes">
 
 
-   </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

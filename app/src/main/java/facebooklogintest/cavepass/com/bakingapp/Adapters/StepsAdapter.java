@@ -73,7 +73,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
                     Intent i = new Intent(context, RecipeStepDetail.class);
 
-                    i.putExtra("instructions",list.get(getLayoutPosition()).getDescription());
+                    i.putExtra("object",list.get(getLayoutPosition()));
 
                     context.startActivity(i);
 
