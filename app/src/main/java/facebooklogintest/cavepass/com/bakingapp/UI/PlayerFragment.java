@@ -1,71 +1,62 @@
 package facebooklogintest.cavepass.com.bakingapp.UI;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.smoothstreaming.SsMediaSource;
 import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
-
-import java.net.URI;
-import java.net.URL;
 
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.Step;
 import facebooklogintest.cavepass.com.bakingapp.R;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Ajay on 22-01-2018.
+ * Created by Ajay on 26-01-2018.
  */
 
-public class RecipeStepDetail extends AppCompatActivity {
+public class PlayerFragment extends Fragment {
 
-    TextView instruction;
     SimpleExoPlayer player;
     SharedPreferences.Editor editor;
     long seekToFor;
     Step object;
 
+    public PlayerFragment(){
+
+    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.player_fragment,container,false);
+
+        SimpleExoPlayerView playerView = view.findViewById(R.id.simple_player_view);
 
 
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.recipe_step_detail);
-
-        SharedPreferences sharedPreferences = getSharedPreferences("playerContentPosition",MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("playerContentPosition", MODE_PRIVATE);
 
 
         editor =  sharedPreferences.edit();
 
-        object = (Step) getIntent().getExtras().get("object");
+        object =  (Step)getArguments().get("stepsObject");
 
         if(sharedPreferences!=null){
 
@@ -74,52 +65,20 @@ public class RecipeStepDetail extends AppCompatActivity {
         }
 
 
-
-        if (this.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT){
-
-            instruction = findViewById(R.id.recipe_instruction);
-
-
-            instruction.setText(object.getDescription());
-
-
-        }
-
-        if (this.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE){
-
-           getSupportActionBar().hide();
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-
-            // getActionBar().hide();
-
-
-
-
-        }
-
-
-
-
         Handler mainHandler = new Handler();
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
         TrackSelection.Factory videoTrackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
         TrackSelector trackSelector = new DefaultTrackSelector(videoTrackSelectionFactory);
 
 
-        player = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
-
-        SimpleExoPlayerView simpleExoPlayerView = findViewById(R.id.exo_player_view);
-
-        simpleExoPlayerView.requestFocus();
+        player = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
 
 
-        simpleExoPlayerView.setPlayer(player);
+
+        playerView.requestFocus();
 
 
-        //  player.setPlayWhenReady();
-        simpleExoPlayerView.requestFocus();
-        // simpleExoPlayerView.setPlayer(player);
+        playerView.setPlayer(player);
 
 
 
@@ -132,29 +91,31 @@ public class RecipeStepDetail extends AppCompatActivity {
 
         //  player.prepare(mediaSource);
 
-       // player.setVideoScalingMode(360);
+        // player.setVideoScalingMode(360);
 
         player.setPlayWhenReady(true);
 
 
+        player.seekTo(seekToFor);
 
-            player.seekTo(seekToFor);
-
-
-
-
-
-
+        return view;
 
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
+        player.release();
 
         editor.putLong("seekToFor"+object.getVideoURL(),player.getContentPosition());
         editor.commit();
 
-        Toast.makeText(this,"onDestroyCalled with "+player.getContentPosition(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        player.release();
     }
 }
