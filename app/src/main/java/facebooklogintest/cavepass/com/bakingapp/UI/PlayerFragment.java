@@ -51,16 +51,16 @@ public class PlayerFragment extends Fragment {
         SimpleExoPlayerView playerView = view.findViewById(R.id.simple_player_view);
 
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("playerContentPosition", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.playerContentPosition), MODE_PRIVATE);
 
 
         editor =  sharedPreferences.edit();
 
-        object =  (Step)getArguments().get("stepsObject");
+        object =  (Step)getArguments().get(getString(R.string.stepsObject));
 
         if(sharedPreferences!=null){
 
-            seekToFor = sharedPreferences.getLong("seekToFor"+object.getVideoURL(),0);
+            seekToFor = sharedPreferences.getLong(getString(R.string.seekToFor)+object.getVideoURL(),0);
 
         }
 
@@ -84,7 +84,7 @@ public class PlayerFragment extends Fragment {
 
         Uri uri = Uri.parse(object.getVideoURL());
         MediaSource mediaSource = new ExtractorMediaSource.Factory(
-                new DefaultHttpDataSourceFactory("exoplayer-codelab")).
+                new DefaultHttpDataSourceFactory(getString(R.string.exoplayer_codelab))).
                 createMediaSource(uri);
 
         player.prepare(mediaSource, true, false);
@@ -107,7 +107,7 @@ public class PlayerFragment extends Fragment {
         super.onStop();
         player.release();
 
-        editor.putLong("seekToFor"+object.getVideoURL(),player.getContentPosition());
+        editor.putLong(getString(R.string.seekToFor)+object.getVideoURL(),player.getContentPosition());
         editor.commit();
 
     }

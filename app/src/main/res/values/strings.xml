@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Baking App</string>
+    <string name="object">object</string>
+    <string name="error">Error</string>
+    <string name="step">"Step "</string>
+    <string name="colon">": "</string>
+    <string name="BASE_URL">"https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/"</string>
+    <string name="stepsObject">stepsObject</string>
+    <string name="ingredientObject">ingredientObject</string>
+    <string name="seekTo">seekTo</string>
+    <string name="playerContentPosition">playerContentPosition</string>
+    <string name="seekToFor">seekToFor</string>
+    <string name="exoplayer_codelab">exoplayer-codelab</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+
 </resources>

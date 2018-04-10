@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.Step;
 import facebooklogintest.cavepass.com.bakingapp.R;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 /**
@@ -35,20 +37,17 @@ public class PlayerUI extends AppCompatActivity {
 
         setContentView(R.layout.player_ui);
 
-        //  list = getIntent().getParcelableExtra("object");
 
-        object = getIntent().getParcelableExtra("object");
+        object = getIntent().getParcelableExtra(getString(R.string.object));
 
-        Toast.makeText(this, "Entered PlayerUI " + object.getVideoURL(), Toast.LENGTH_SHORT).show();
+
 
         if (this.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
 
-            LinearLayout layout = findViewById(R.id.player_ui_layout);
-            layout.removeAllViewsInLayout();
-
+            Log.e("Entered","Here");
 
             Bundle stepsBundle = new Bundle();
-            stepsBundle.putParcelable("stepsObject", object);
+            stepsBundle.putParcelable(getString(R.string.stepsObject), object);
 
             FragmentManager fragmentManager = getFragmentManager();
 
@@ -61,7 +60,8 @@ public class PlayerUI extends AppCompatActivity {
             fragmentManager.beginTransaction().add(R.id.step_long_description, description).commit();
 
 
-        } else {
+        } else if (this.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            Log.e("Entered","Here in Landscape");
 
 
             getSupportActionBar().hide();
@@ -69,7 +69,7 @@ public class PlayerUI extends AppCompatActivity {
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 
             Bundle stepsBundle = new Bundle();
-            stepsBundle.putParcelable("stepsObject", object);
+            stepsBundle.putParcelable(getString(R.string.stepsObject), object);
 
             FragmentManager fragmentManager = getFragmentManager();
 

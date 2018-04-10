@@ -2,21 +2,22 @@ package facebooklogintest.cavepass.com.bakingapp.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 import facebooklogintest.cavepass.com.bakingapp.R;
-import facebooklogintest.cavepass.com.bakingapp.UI.RecipeSteps;
+import facebooklogintest.cavepass.com.bakingapp.UI.MasterListClass;
+import facebooklogintest.cavepass.com.bakingapp.UI.WidgetUpdateService;
 
 /**
  * Created by Ajay on 09-01-2018.
@@ -28,6 +29,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     List<ApiResponce> list ;
     ArrayList<ApiResponce> apiResponces ;
 
+
    public RecipeRecyclerViewAdapter(Context context, List<ApiResponce> list){
 
         this.context = context;
@@ -37,6 +39,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
 
        apiResponces = new ArrayList<>(list);
 
@@ -54,10 +57,19 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
 
 
-        Log.e("image","Entered with position "+position);
-        Log.e("Image Address",""+apiResponces.size());
-
         holder.recipeName.setText(list.get(position).getName());
+
+        if(list.get(position).getImage()==""){
+            holder.recipeImage.setImageResource(R.drawable.noimage);
+        }
+
+        else {
+
+
+            Glide.with(context).load(list.get(position).getImage()).into(holder.recipeImage);
+
+
+        }
 
 
 
@@ -79,6 +91,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
         public MyViewHolder(View itemView) {
             super(itemView);
 
+
+
           recipeImage = itemView.findViewById(R.id.recipe_image);
           recipeName = itemView.findViewById(R.id.recipeName);
 
@@ -86,25 +100,18 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
                 @Override
                 public void onClick(View v) {
 
-                    Intent i = new Intent(context,RecipeSteps.class);
+                    WidgetUpdateService.updateWidget(context,list.get(getLayoutPosition()).getName());
 
-                    Log.e("position",""+pos);
 
-                    if(list.get(getLayoutPosition())!=null){
-
-                        Log.e("OBJECT IS ", " NOT NULL");
-
-                    }
-
-                    else{
-
-                        Log.e("OBJECT IS ", " NULL");
-
-                    }
+                    Intent intent = new Intent(context,MasterListClass.class);
 
 
 
-                    i.putExtra("object",list.get(getLayoutPosition()));
+
+
+                    Intent i = new Intent(context,MasterListClass.class);
+
+                    i.putExtra(context.getString(R.string.object),list.get(getLayoutPosition()));
                     context.startActivity(i);
 
                 }

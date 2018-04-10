@@ -6,8 +6,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -39,16 +42,22 @@ public class MasterListClass extends AppCompatActivity implements StepsAdapter.o
         super.onCreate(savedInstanceState);
         setContentView(R.layout.master_list);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+
+
         fragmentManager = getFragmentManager();
-        list = getIntent().getParcelableExtra("object");
+        list = getIntent().getParcelableExtra(getString(R.string.object));
+        getSupportActionBar().setTitle(list.getName());
         if (fragmentManager.getBackStackEntryCount() == 0) {
 
 
             Bundle ingredientsBundle = new Bundle();
-            ingredientsBundle.putParcelableArrayList("ingredientObject", list.getIngredients());
+            ingredientsBundle.putParcelableArrayList(getString(R.string.ingredientObject), list.getIngredients());
 
             Bundle stepsBundle = new Bundle();
-            stepsBundle.putParcelableArrayList("stepsObject", list.getSteps());
+            stepsBundle.putParcelableArrayList(getString(R.string.stepsObject), list.getSteps());
 
 
             IngredientsFragmentClass ingredientsFragmentClass = new IngredientsFragmentClass();
@@ -60,14 +69,14 @@ public class MasterListClass extends AppCompatActivity implements StepsAdapter.o
             fragmentManager.beginTransaction().add(R.id.ingredients_fragment, ingredientsFragmentClass).addToBackStack(PLAYER_TAG).commit();
             fragmentManager.beginTransaction().add(R.id.recipe_Steps_fragment, recipeStepsFragmentClass).addToBackStack(DESCRIPTION_TAG).commit();
 
-            if (findViewById(R.id.player_ui_layout) == null)
+            if (getResources().getBoolean(R.bool.isTablet))
 
             {
 
 
                 Bundle playerUiBundle = new Bundle();
-                playerUiBundle.putParcelable("stepsObject", list.getSteps().get(0));
-                playerUiBundle.putLong("seekTo", seekToFor);
+                playerUiBundle.putParcelable(getString(R.string.stepsObject), list.getSteps().get(0));
+                playerUiBundle.putLong(getString(R.string.seekTo), seekToFor);
 
 
                 PlayerFragment player = new PlayerFragment();
@@ -85,20 +94,39 @@ public class MasterListClass extends AppCompatActivity implements StepsAdapter.o
         }
         else{
             Bundle playerUiBundle = new Bundle();
-            playerUiBundle.putParcelable("stepsObject", list.getSteps().get(0));
-            playerUiBundle.putLong("seekTo", seekToFor);
+            playerUiBundle.putParcelable(getString(R.string.stepsObject), list.getSteps().get(0));
+            playerUiBundle.putLong(getString(R.string.seekTo), seekToFor);
 
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                 this.finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+       this.finish();
+    }
 
     @Override
     public void onClick(int position) {
 
-        if(findViewById(R.id.player_ui_layout)!=null){
+        if(!getResources().getBoolean(R.bool.isTablet)){
         Intent i = new Intent(this,PlayerUI.class);
-        i.putExtra("object",list.getSteps().get(position));
+        i.putExtra(getString(R.string.object),list.getSteps().get(position));
         startActivity(i);}
 
         else
@@ -107,7 +135,7 @@ public class MasterListClass extends AppCompatActivity implements StepsAdapter.o
 
 
                 Bundle playerUiBundle = new Bundle();
-                playerUiBundle.putParcelable("stepsObject", list.getSteps().get(position));
+                playerUiBundle.putParcelable(getString(R.string.stepsObject), list.getSteps().get(position));
                 // fragmentManager = getFragmentManager();
 
 

@@ -33,7 +33,7 @@ public class RecipeStepsFragmentClass extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
 
-       list = getArguments().getParcelableArrayList("stepsObject");
+       list = getArguments().getParcelableArrayList(getString(R.string.stepsObject));
 
 
        View rootView  = inflater.inflate(R.layout.recipe_steps_fragment,container,false);

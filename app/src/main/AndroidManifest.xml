@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="facebooklogintest.cavepass.com.bakingapp">
 
-
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -19,9 +18,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UI.MasterListClass" />
+        <activity android:name=".UI.PlayerUI" />
 
-        <activity android:name=".UI.MasterListClass"/>
-        <activity android:name=".UI.PlayerUI"/>
+        <receiver android:name=".UI.RecipeAppWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/recipe_app_widget_provider_info" />
+        </receiver>
+
+        <service android:name=".UI.WidgetUpdateService" />
+
+        <provider
+            android:authorities="facebooklogintest.cavepass.com.bakingapp"
+            android:name="facebooklogintest.cavepass.com.bakingapp.Data.RecipeContentProvider"
+            android:exported="true"
+            />
+
     </application>
+
 
 </manifest>

@@ -35,7 +35,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view  = layoutInflater.inflate(R.layout.ingredients,parent,false);
+        View view  = layoutInflater.inflate(R.layout.ingredient_list,parent,false);
         return new MyViewHolder(view);
     }
 
@@ -60,8 +60,8 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         TextView ingredients,units;
         public MyViewHolder(View itemView) {
             super(itemView);
-            ingredients = itemView.findViewById(R.id.ingredient);
-            units = itemView.findViewById(R.id.units);
+            ingredients = itemView.findViewById(R.id.ingredient_name);
+            units = itemView.findViewById(R.id.ingredient_quantity);
         }
     }
 

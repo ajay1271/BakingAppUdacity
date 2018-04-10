@@ -39,7 +39,7 @@ public class IngredientsFragmentClass extends Fragment{
 
         context = getContext() ;
 
-        list = getArguments().getParcelableArrayList("ingredientObject");
+        list = getArguments().getParcelableArrayList(getString(R.string.ingredientObject));
 
         View rootView = inflater.inflate(R.layout.ingredients_fragment,container,false);
 

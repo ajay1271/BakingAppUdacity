@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import facebooklogintest.cavepass.com.bakingapp.UI.RecipeStepDetail;
-
 /**
  * Created by Ajay on 22-01-2018.
  */
@@ -21,6 +19,8 @@ public class RecipeStepDetailAdapter extends RecyclerView.Adapter<StepsAdapter.M
 
 
     }
+
+
 
     @Override
     public StepsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

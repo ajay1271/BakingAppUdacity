@@ -25,7 +25,7 @@ public class Description extends Fragment {
 
         TextView description =  view.findViewById(R.id.long_description);
 
-        Step object = getArguments().getParcelable("stepsObject");
+        Step object = getArguments().getParcelable(getString(R.string.stepsObject));
 
         description.setText(object.getDescription());
 

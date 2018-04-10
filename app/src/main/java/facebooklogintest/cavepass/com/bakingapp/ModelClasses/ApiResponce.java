@@ -3,6 +3,7 @@ package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -28,7 +29,7 @@ public class ApiResponce implements Parcelable {
         name = in.readString();
         ingredients = in.createTypedArrayList(Ingredient.CREATOR);
         steps = in.createTypedArrayList(Step.CREATOR);
-        this.image = in.readString();
+        this.image = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     public static final Creator<ApiResponce> CREATOR = new Creator<ApiResponce>() {
@@ -74,6 +75,7 @@ public class ApiResponce implements Parcelable {
     public void setSteps(ArrayList<Step> steps) {
         this.steps = steps;
     }
+
     public void setImage(String image) {
         this.image = image;
     }
@@ -81,6 +83,7 @@ public class ApiResponce implements Parcelable {
     public String getImage() {
         return image;
     }
+
     @Override
     public int describeContents() {
         return 0;
