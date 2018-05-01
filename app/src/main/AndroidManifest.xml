@@ -20,26 +20,23 @@
         </activity>
         <activity android:name=".UI.MasterListClass" />
         <activity android:name=".UI.PlayerUI" />
+        <service android:name=".RecipeWidgetUpdateService" />
 
-        <receiver android:name=".UI.RecipeAppWidgetProvider">
+
+        <provider
+            android:name=".Data.RecipeContentProvider"
+            android:authorities="facebooklogintest.cavepass.com.bakingapp"
+            android:exported="true" />
+
+        <receiver android:name=".RecipeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/recipe_app_widget_provider_info" />
+                android:resource="@xml/recipe_widget_info" />
         </receiver>
-
-        <service android:name=".UI.WidgetUpdateService" />
-
-        <provider
-            android:authorities="facebooklogintest.cavepass.com.bakingapp"
-            android:name="facebooklogintest.cavepass.com.bakingapp.Data.RecipeContentProvider"
-            android:exported="true"
-            />
-
     </application>
-
 
 </manifest>

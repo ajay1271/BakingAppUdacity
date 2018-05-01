@@ -28,7 +28,7 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class MainActivity extends AppCompatActivity {
 
-    List<ApiResponce> list;
+  public static List<ApiResponce> list;
     @Nullable private SimpleIdlingResource mIdlingResource;
 
     @Override
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 recyclerView.setAdapter(new RecipeRecyclerViewAdapter(MainActivity.this, list));
+                mIdlingResource.setIdleState(true);
 
 
             }
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        mIdlingResource.setIdleState(true);
+
 
 
     }

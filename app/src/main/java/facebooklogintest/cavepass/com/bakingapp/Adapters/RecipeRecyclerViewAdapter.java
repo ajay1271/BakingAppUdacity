@@ -1,7 +1,12 @@
 package facebooklogintest.cavepass.com.bakingapp.Adapters;
 
+import android.app.IntentService;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +19,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import facebooklogintest.cavepass.com.bakingapp.Data.DBContract;
+import facebooklogintest.cavepass.com.bakingapp.Data.DBHelper;
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 import facebooklogintest.cavepass.com.bakingapp.R;
+import facebooklogintest.cavepass.com.bakingapp.RecipeWidgetUpdateService;
 import facebooklogintest.cavepass.com.bakingapp.UI.MasterListClass;
-import facebooklogintest.cavepass.com.bakingapp.UI.WidgetUpdateService;
 
 /**
  * Created by Ajay on 09-01-2018.
@@ -59,7 +66,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
         holder.recipeName.setText(list.get(position).getName());
 
-        if(list.get(position).getImage()==""){
+        if(list.get(position).getImage().equals("")){
             holder.recipeImage.setImageResource(R.drawable.noimage);
         }
 
@@ -67,6 +74,7 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
 
 
             Glide.with(context).load(list.get(position).getImage()).into(holder.recipeImage);
+           // holder.recipeImage.setImageResource(R.drawable.noimage);
 
 
         }
@@ -100,19 +108,46 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
                 @Override
                 public void onClick(View v) {
 
-                    WidgetUpdateService.updateWidget(context,list.get(getLayoutPosition()).getName());
+                   // WidgetUpdateService.updateWidget(context,list.get(getLayoutPosition()).getName());
+
+                    DBHelper db = new DBHelper(context);
+                    ContentValues contentValues = new ContentValues();
+
+                    SQLiteDatabase sqlDB = db.getWritableDatabase();
+
+                    contentValues.put(DBContract.RECIPE_NAME,list.get(getLayoutPosition()).getName());
+
+                    db.onUpgrade(sqlDB,1,1);
+
+                    Uri uri = context.getContentResolver().insert(DBContract.CONTENT_URI,contentValues);
+
+                    Intent intentService = new Intent(context, RecipeWidgetUpdateService.class) ;
+
+                    intentService.setAction("facebooklogintest.cavepass.com.bakingapp.update");
+
+                    context.startService(intentService);
 
 
-                    Intent intent = new Intent(context,MasterListClass.class);
-
-
-
-
+                   // Intent  intent = new Intent(context,MasterListClass.class);
 
                     Intent i = new Intent(context,MasterListClass.class);
 
+
+
+
+
                     i.putExtra(context.getString(R.string.object),list.get(getLayoutPosition()));
+
                     context.startActivity(i);
+
+
+
+
+
+
+
+
+
 
                 }
             });

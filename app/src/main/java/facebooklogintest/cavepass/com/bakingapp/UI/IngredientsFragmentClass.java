@@ -20,7 +20,7 @@ import facebooklogintest.cavepass.com.bakingapp.R;
  * Created by Ajay on 26-01-2018.
  */
 
-public class IngredientsFragmentClass extends Fragment{
+public class IngredientsFragmentClass extends Fragment {
 
     List<Ingredient> list;
     Context context;
@@ -32,6 +32,7 @@ public class IngredientsFragmentClass extends Fragment{
 
 
     }
+
 
 
     @Override

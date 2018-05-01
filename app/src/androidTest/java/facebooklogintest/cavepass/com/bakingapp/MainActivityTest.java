@@ -14,8 +14,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.anything;
 
 import android.support.test.espresso.Espresso;
+import android.support.test.espresso.IdlingRegistry;
 import android.support.test.espresso.IdlingResource;
 import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -43,23 +45,28 @@ public class MainActivityTest {
 
         mIdlingResource = mActivityTestRule.getActivity().getIdlingResource();
 
-        Espresso.registerIdlingResources(mIdlingResource);
+        IdlingRegistry.getInstance().register(mIdlingResource);
+
+        // Espresso.registerIdlingResource(countingResource);
 
     }
+
 
 
     @Test
     public void clickGridViewItem_opensRecipe(){
 
-     //  onView(withId(R.id.recipe_steps_recycler_view)).perform(click());
 
-      //  onData(anything()).inAdapterView(withId(R.id.recyclerView_recipes)).atPosition(1).perform(click());
+       //onView(withId(R.id.recipe_steps_recycler_view)).perform(isClickable());
 
-
-      onView(withId(R.id.recyclerView_recipes))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+    //    onData(anything()).inAdapterView(withId(R.id.recyclerView_recipes)).atPosition(1).perform(click());
 
 
+
+        onView(ViewMatchers.withId(R.id.recyclerView_recipes))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0,
+                        click()));
+      //  onView(withId(R.id.recipe_steps_recycler_view)).perform(click());
     }
 
 

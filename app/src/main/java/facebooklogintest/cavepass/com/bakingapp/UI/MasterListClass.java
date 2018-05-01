@@ -118,8 +118,11 @@ public class MasterListClass extends AppCompatActivity implements StepsAdapter.o
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-       this.finish();
+      finish();
+
     }
+
+
 
     @Override
     public void onClick(int position) {
