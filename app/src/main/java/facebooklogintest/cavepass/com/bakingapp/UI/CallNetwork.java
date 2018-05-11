@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class CallNetwork extends IntentService{
 
         if(intent.getAction().equals(ACTION)) {
 
+            Toast.makeText(this,"CALLED",Toast.LENGTH_SHORT).show();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             Call<List<ApiResponce>> call = apiService.getResponce();
 
@@ -42,6 +44,7 @@ public class CallNetwork extends IntentService{
                 @Override
                 public void onResponse(Call<List<ApiResponce>> call, Response<List<ApiResponce>> response) {
                     list = (response.body());
+
                 }
 
                 @Override

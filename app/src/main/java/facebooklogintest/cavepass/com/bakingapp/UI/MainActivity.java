@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
 
@@ -23,6 +24,7 @@ import facebooklogintest.cavepass.com.bakingapp.Retrofit.ApiInterface;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
@@ -44,6 +46,14 @@ public class MainActivity extends AppCompatActivity {
         mIdlingResource.setIdleState(false);
 
 
+        String title = "";
+
+        if(getIntent().getExtras()!=null) {
+            title = getIntent().getStringExtra(getString(R.string.object));
+            Toast.makeText(this,title,Toast.LENGTH_SHORT).show();
+        }
+
+
 
         final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView_recipes);
         if (getResources().getBoolean(R.bool.isTablet)&&this.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
@@ -63,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         call.enqueue(new Callback<List<ApiResponce>>() {
             @Override
-            public void onResponse(Call<List<ApiResponce>> call, Response<List<ApiResponce>> response) {
+            public void onResponse(Call<List<ApiResponce>> call,  Response<List<ApiResponce>> response) {
 
                 list = (response.body());
 

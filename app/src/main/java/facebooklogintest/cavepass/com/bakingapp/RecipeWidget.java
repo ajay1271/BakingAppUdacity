@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider;
 import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import facebooklogintest.cavepass.com.bakingapp.Adapters.RecipeRecyclerViewAdapter;
+import facebooklogintest.cavepass.com.bakingapp.Data.DBContract;
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.ApiResponce;
 import facebooklogintest.cavepass.com.bakingapp.Retrofit.ApiClient;
 import facebooklogintest.cavepass.com.bakingapp.Retrofit.ApiInterface;
@@ -45,12 +47,7 @@ public class RecipeWidget extends AppWidgetProvider{
         RemoteViews views = new RemoteViews(context.getPackageName(),R.layout.recipe_widget);
 
         Toast.makeText(context,text,Toast.LENGTH_SHORT).show();
-
-
-
         views.setTextViewText(R.id.appwidget_text,text);
-      //  views.setImageViewResource(R.id.recipe_image,R.drawable.noimage);
-
         appWidgetManager.updateAppWidget(appWidgetId,views);
 
     }
@@ -65,17 +62,33 @@ public class RecipeWidget extends AppWidgetProvider{
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        Intent i = new Intent(context, CallNetwork.class);
-        i.setAction(ACTION);
-        context.startService(i);
-
-        Intent intent = new Intent(context, MasterListClass.class);
-        this.list =  CallNetwork.list;
-        intent.putExtra(context.getString(R.string.object),list.get(0));
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.recipe_widget);
-        views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
-        Log.e("iClicked","yes");
+        Intent intent = new Intent(context, MasterListClass.class);
+
+        Log.e("widget ","Entered in method");
+
+        Cursor c = context.getContentResolver().query(DBContract.CONTENT_URI,null,null,null);
+
+
+            c.moveToFirst();
+
+
+
+        String temp = c.getString(c.getColumnIndex(DBContract.RECIPE_NAME));
+
+        intent.putExtra( "stringFromWidget",temp);
+
+        Log.e("widget ","sendingRecipe "+temp);
+
+        Toast.makeText(context,temp+" says hello",Toast.LENGTH_SHORT).show();
+
+
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+       views.setOnClickPendingIntent(R.id.widget_layout, pendingIntent);
+
+
         appWidgetManager.updateAppWidget(appWidgetIds[0], views);
     }
 
