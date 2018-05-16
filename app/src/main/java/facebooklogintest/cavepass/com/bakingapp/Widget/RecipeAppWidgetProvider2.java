@@ -13,6 +13,7 @@ import facebooklogintest.cavepass.com.bakingapp.R;
 import facebooklogintest.cavepass.com.bakingapp.UI.RecipeWidgetUpdateService;
 
 /**
+ *
  * Implementation of App Widget functionality.
  */
 public class RecipeAppWidgetProvider2 extends AppWidgetProvider {

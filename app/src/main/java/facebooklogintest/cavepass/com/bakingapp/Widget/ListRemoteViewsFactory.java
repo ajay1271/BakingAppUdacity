@@ -9,6 +9,7 @@ import facebooklogintest.cavepass.com.bakingapp.R;
 
 /**
  * Created by Ajay on 16-05-2018.
+ * 
  */
 
 
@@ -21,6 +22,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         this.context=applicationContext;
 
     }
+
 
     @Override
     public void onCreate() {
