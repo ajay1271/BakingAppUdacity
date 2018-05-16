@@ -1,4 +1,4 @@
-package facebooklogintest.cavepass.com.bakingapp.UI;
+package facebooklogintest.cavepass.com.bakingapp.Widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import facebooklogintest.cavepass.com.bakingapp.R;
+import facebooklogintest.cavepass.com.bakingapp.UI.RecipeWidgetUpdateService;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,7 +25,7 @@ public class RecipeAppWidgetProvider2 extends AppWidgetProvider {
         Log.e("Called","RecipeAppWidgetProvider.updateWidget()");
 
         Intent svcIntent = new Intent(context, RecipeWidgetUpdateService.class);
-        svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        //svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
         RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget_provider2);
 
@@ -39,7 +40,7 @@ public class RecipeAppWidgetProvider2 extends AppWidgetProvider {
 
 
         appWidgetManager.updateAppWidget(appWidgetId, widget);
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_widget);
+        //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_widget);
 
     }
 

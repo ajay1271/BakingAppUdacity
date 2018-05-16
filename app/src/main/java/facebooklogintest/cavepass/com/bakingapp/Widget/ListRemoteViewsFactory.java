@@ -1,14 +1,9 @@
-package facebooklogintest.cavepass.com.bakingapp.UI;
+package facebooklogintest.cavepass.com.bakingapp.Widget;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import facebooklogintest.cavepass.com.bakingapp.R;
 
@@ -16,23 +11,13 @@ import facebooklogintest.cavepass.com.bakingapp.R;
  * Created by Ajay on 16-05-2018.
  */
 
-public class ListWidgetService extends RemoteViewsService {
 
-
-
-    @Override
-    public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        Log.e("Called","RemoteViewsFactory");
-        return new AppWidgetListView (this.getApplicationContext());
-    }
-}
-
-class AppWidgetListView implements RemoteViewsService.RemoteViewsFactory {
+class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private String[] array = {"Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello","Hello"};//Dummy Data
     private Context context;
 
-    public AppWidgetListView(Context applicationContext) {
+    public ListRemoteViewsFactory(Context applicationContext) {
         this.context=applicationContext;
 
     }
@@ -65,9 +50,9 @@ class AppWidgetListView implements RemoteViewsService.RemoteViewsFactory {
         views.setTextViewText(R.id.quantity_widget, array[position]);
 
         Intent fillInIntent = new Intent();
-       // fillInIntent.putExtra("ItemTitle",dataList.get(position).title);
-    //    fillInIntent.putExtra("ItemSubTitle",dataList.get(position).subTitle);
-     //   views.setOnClickFillInIntent(R.id.parentView, fillInIntent);
+        // fillInIntent.putExtra("ItemTitle",dataList.get(position).title);
+        //    fillInIntent.putExtra("ItemSubTitle",dataList.get(position).subTitle);
+        //   views.setOnClickFillInIntent(R.id.parentView, fillInIntent);
         return views;
     }
 

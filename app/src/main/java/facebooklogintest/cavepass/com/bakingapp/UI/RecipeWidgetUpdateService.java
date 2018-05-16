@@ -4,8 +4,9 @@ import android.app.IntentService;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.database.Cursor;
 import android.util.Log;
+
+import facebooklogintest.cavepass.com.bakingapp.Widget.RecipeAppWidgetProvider2;
 
 /**
  * Created by Ajay on 16-05-2018.
