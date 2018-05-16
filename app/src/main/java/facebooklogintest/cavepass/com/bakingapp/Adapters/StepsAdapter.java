@@ -21,7 +21,7 @@ import facebooklogintest.cavepass.com.bakingapp.UI.RecipeStepsFragmentClass;
  * Created by Ajay on 10-01-2018.
  */
 
-public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder>  {
+public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder> {
 
     Context context;
 
@@ -29,40 +29,32 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
     onItemClick mCallback;
 
-    public interface onItemClick{
+    public interface onItemClick {
 
         void onClick(int position);
 
     }
 
 
-
-    public StepsAdapter(Context context, List<Step> list){
+    public StepsAdapter(Context context, List<Step> list) {
 
         this.context = context;
 
         this.list = list;
 
-        try{
+        try {
 
             mCallback = (onItemClick) context;
 
 
+        } catch (Exception e) {
+
+            Log.e(context.getString(R.string.error), e.getMessage());
+
         }
-        catch (Exception e){
-
-            Log.e(context.getString(R.string.error),e.getMessage());
-
-        }
-
 
 
     }
-
-
-
-
-
 
 
     @Override
@@ -70,16 +62,16 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-      View view = layoutInflater.inflate(R.layout.recipe_part,parent,false);
+        View view = layoutInflater.inflate(R.layout.recipe_part, parent, false);
 
 
-        return new MyViewHolder(view) ;
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
-        String s = context.getString(R.string.step)+position+context.getString(R.string.colon)+list.get(position).getShortDescription();
+        String s = context.getString(R.string.step) + position + context.getString(R.string.colon) + list.get(position).getShortDescription();
 
         holder.stepsDescription.setText(s);
 
@@ -91,9 +83,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
     }
 
 
-
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
 
         TextView stepsDescription;
@@ -108,7 +98,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
             stepsDescription.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    
+
 
                     mCallback.onClick(getLayoutPosition());
 

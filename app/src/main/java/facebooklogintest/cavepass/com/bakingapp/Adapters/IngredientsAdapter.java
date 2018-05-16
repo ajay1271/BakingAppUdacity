@@ -19,23 +19,21 @@ import facebooklogintest.cavepass.com.bakingapp.R;
  * Created by Ajay on 14-01-2018.
  */
 
-public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.MyViewHolder>{
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.MyViewHolder> {
 
     Context context;
     List<Ingredient> list;
 
-    public IngredientsAdapter(Context context, List<Ingredient> list){
+    public IngredientsAdapter(Context context, List<Ingredient> list) {
 
-        this.context = context ;
+        this.context = context;
         this.list = list;
-
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view  = layoutInflater.inflate(R.layout.ingredient_list,parent,false);
+        View view = layoutInflater.inflate(R.layout.ingredient_list, parent, false);
         return new MyViewHolder(view);
     }
 
@@ -45,10 +43,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         holder.ingredients.setText(list.get(position).getIngredient());
 
-       holder.units.setText(list.get(position).getQuantity()+" "+list.get(position).getMeasure());
-
-      //  Toast.makeText(context,""+list.get(position).getMeasure(),Toast.LENGTH_SHORT).show();
-
+        holder.units.setText(list.get(position).getQuantity() + " " + list.get(position).getMeasure());
     }
 
     @Override
@@ -56,15 +51,15 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         return list.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView ingredients,units;
+    class MyViewHolder extends RecyclerView.ViewHolder {
+        TextView ingredients, units;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             ingredients = itemView.findViewById(R.id.ingredient_name);
             units = itemView.findViewById(R.id.ingredient_quantity);
         }
     }
-
 
 
 }

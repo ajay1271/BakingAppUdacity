@@ -1,5 +1,6 @@
 package facebooklogintest.cavepass.com.bakingapp.UI;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -30,75 +31,57 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class MainActivity extends AppCompatActivity {
 
-  public static List<ApiResponce> list;
-    @Nullable private SimpleIdlingResource mIdlingResource;
+    public static List<ApiResponce> list;
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        Stetho.initializeWithDefaults(this);
+        if (CheckNetwork.isInternetAvailable(this)) {
 
-        mIdlingResource=getIdlingResource();
+            setContentView(R.layout.activity_main);
+            Stetho.initializeWithDefaults(this);
+            mIdlingResource = getIdlingResource();
+            mIdlingResource.setIdleState(false);
 
+            final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView_recipes);
 
-        mIdlingResource.setIdleState(false);
-
-
-        String title = "";
-
-        if(getIntent().getExtras()!=null) {
-            title = getIntent().getStringExtra(getString(R.string.object));
-            Toast.makeText(this,title,Toast.LENGTH_SHORT).show();
-        }
-
-
-
-        final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView_recipes);
-        if (getResources().getBoolean(R.bool.isTablet)&&this.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-
-
+            if (getResources().getBoolean(R.bool.isTablet) && this.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
                 recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
-           }
+            } else {
+                recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            }
 
-        else {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+
+            Call<List<ApiResponce>> call = apiService.getResponce();
+
+            call.enqueue(new Callback<List<ApiResponce>>() {
+                @Override
+                public void onResponse(Call<List<ApiResponce>> call, Response<List<ApiResponce>> response) {
+
+                    list = (response.body());
+                    recyclerView.setAdapter(new RecipeRecyclerViewAdapter(MainActivity.this, list));
+                    mIdlingResource.setIdleState(true);
+                }
+
+                @Override
+                public void onFailure(Call<List<ApiResponce>> call, Throwable t) {
+                    Log.e(getString(R.string.error), t.getMessage());
+                    Toast.makeText(MainActivity.this,t.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            });
         }
-
-
-        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        Call<List<ApiResponce>> call = apiService.getResponce();
-
-        call.enqueue(new Callback<List<ApiResponce>>() {
-            @Override
-            public void onResponse(Call<List<ApiResponce>> call,  Response<List<ApiResponce>> response) {
-
-                list = (response.body());
-
-
-                recyclerView.setAdapter(new RecipeRecyclerViewAdapter(MainActivity.this, list));
-                mIdlingResource.setIdleState(true);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<List<ApiResponce>> call, Throwable t) {
-
-                Log.e(getString(R.string.error), t.getMessage());
-
-
-            }
-
-
-        });
-
-
-
+        else {
+            Intent i = new Intent(this,NoInternet.class);
+            startActivity(i);
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show();
+        }
 
     }
+
 
     @VisibleForTesting
     @NonNull

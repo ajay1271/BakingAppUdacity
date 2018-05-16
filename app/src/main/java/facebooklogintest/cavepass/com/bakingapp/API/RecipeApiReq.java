@@ -19,4 +19,5 @@ public class RecipeApiReq {
     public void setResults(List<ApiResponce> results) {
         this.results = results;
     }
+
 }

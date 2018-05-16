@@ -38,7 +38,6 @@ public class RecipeContentProvider extends ContentProvider {
 
 
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
         uriMatcher.addURI(DBContract.AUTHORITY, DBContract.PATH_TASKS, TASKS);
         uriMatcher.addURI(DBContract.AUTHORITY, DBContract.PATH_TASKS + "/#", TASK_WITH_ID);
 
@@ -50,15 +49,9 @@ public class RecipeContentProvider extends ContentProvider {
                         String[] selectionArgs, String sortOrder) {
 
         DBHelper dbHelper = new DBHelper(getContext());
-
-
         final SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-
         int match = sUriMatcher.match(uri);
-
         Cursor retCursor;
-
 
         switch (match) {
 
@@ -75,26 +68,22 @@ public class RecipeContentProvider extends ContentProvider {
             case TASK_WITH_ID:
 
                 String _id = uri.getPathSegments().get(1);
-
                 String table = uri.getPathSegments().get(0);
 
                 retCursor = db.query(table,
                         projection,
-                        DBContract._ID + "=" +_id,
+                        DBContract._ID + "=" + _id,
                         selectionArgs,
                         null,
                         null,
                         sortOrder);
                 break;
-
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
 
 
         retCursor.setNotificationUri(getContext().getContentResolver(), uri);
-
-
         return retCursor;
     }
 
@@ -116,14 +105,11 @@ public class RecipeContentProvider extends ContentProvider {
         Uri returnUri;
 
         switch (match) {
-
             case TASKS:
-
                 long id = sqLiteDatabase.insert(TABLE_NAME, null, values);
 
                 if (id > 0) {
                     returnUri = ContentUris.withAppendedId(DBContract.CONTENT_URI, id);
-
                 } else {
                     throw new SQLException("Failed to insert row into :" + uri);
                 }
@@ -131,23 +117,16 @@ public class RecipeContentProvider extends ContentProvider {
 
             default:
                 throw new UnsupportedOperationException("UnknownUri :" + uri);
-
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
-
         return returnUri;
     }
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
-
         final SQLiteDatabase db = dbHelper.getReadableDatabase();
-
-
-
-
         return 0;
     }
 

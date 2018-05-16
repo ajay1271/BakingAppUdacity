@@ -16,38 +16,26 @@ import facebooklogintest.cavepass.com.bakingapp.Adapters.StepsAdapter;
 import facebooklogintest.cavepass.com.bakingapp.ModelClasses.Step;
 import facebooklogintest.cavepass.com.bakingapp.R;
 
-/**
- * Created by Ajay on 26-01-2018.
- */
 
 public class RecipeStepsFragmentClass extends Fragment {
 
     List<Step> list;
 
-   public RecipeStepsFragmentClass(){
-
-
-    }
-
+    public RecipeStepsFragmentClass() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-       list = getArguments().getParcelableArrayList(getString(R.string.stepsObject));
+        list = getArguments().getParcelableArrayList(getString(R.string.stepsObject));
 
-
-       View rootView  = inflater.inflate(R.layout.recipe_steps_fragment,container,false);
-
+        View rootView = inflater.inflate(R.layout.recipe_steps_fragment, container, false);
         RecyclerView recipeStepsRecyclerView = rootView.findViewById(R.id.recipe_steps_recycler_view);
+        recipeStepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recipeStepsRecyclerView.setAdapter(new StepsAdapter(getContext(), list));
 
-        recipeStepsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false));
-
-        recipeStepsRecyclerView.setAdapter(new StepsAdapter(getContext(),list));
-
-       return rootView;
+        return rootView;
 
     }
-
 
 
 }

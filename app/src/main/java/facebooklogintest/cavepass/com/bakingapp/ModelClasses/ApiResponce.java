@@ -23,7 +23,6 @@ public class ApiResponce implements Parcelable {
         this.steps = steps;
     }
 
-
     protected ApiResponce(Parcel in) {
         id = in.readInt();
         name = in.readString();

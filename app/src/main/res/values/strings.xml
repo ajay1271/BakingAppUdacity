@@ -9,10 +9,15 @@
     <string name="ingredientObject">ingredientObject</string>
     <string name="seekTo">seekTo</string>
     <string name="playerContentPosition">playerContentPosition</string>
+    <string name="ACTION_ONE">facebooklogintest.cavepass.com.bakingapp.update</string>
     <string name="seekToFor">seekToFor</string>
     <string name="exoplayer_codelab">exoplayer-codelab</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-
-
+    <string name="fromWidget">stringFromWidget</string>
+    <string name="DATABASE__NAME">BakingDatabase</string>
+    <string name="notAvailable">NOT_AVAILABLE</string>
+    <string name="lastVisited">Last Visited</string>
+    <string name="drawable">drawable</string>
+    <string name="recipeWidgetUpdateService">recipeWidgetUpdateService</string>
 </resources>

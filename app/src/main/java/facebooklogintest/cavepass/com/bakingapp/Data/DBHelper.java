@@ -14,9 +14,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static int DATABASE__VERSION = 1;
 
 
-
     public DBHelper(Context context) {
-        super(context, DATABASE__NAME,null, DATABASE__VERSION);
+        super(context, DATABASE__NAME, null, DATABASE__VERSION);
     }
 
     @Override
@@ -27,6 +26,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContract.TABLE_NAME + "(" +
                 DBContract._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DBContract.RECIPE_NAME + " TEXT, " +
+                DBContract.INGREDIENTS + " TEXT, " +
+                DBContract.QUANTITY + " TEXT, " +
                 DBContract.IMAGE_ID + " TEXT" +
 
                 "); ";
@@ -37,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL(" DROP TABLE '"+ DBContract.TABLE_NAME+"'");
+        db.execSQL(" DROP TABLE '" + DBContract.TABLE_NAME + "'");
 
         onCreate(db);
 

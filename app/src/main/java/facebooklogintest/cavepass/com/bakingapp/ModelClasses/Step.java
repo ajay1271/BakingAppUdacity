@@ -4,8 +4,7 @@ package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Step implements Parcelable
-{
+public class Step implements Parcelable {
 
     private Integer id;
     private String shortDescription;
@@ -16,7 +15,7 @@ public class Step implements Parcelable
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public Step createFromParcel(Parcel in) {
             return new Step(in);
@@ -26,8 +25,7 @@ public class Step implements Parcelable
             return (new Step[size]);
         }
 
-    }
-    ;
+    };
 
     protected Step(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
@@ -89,7 +87,7 @@ public class Step implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

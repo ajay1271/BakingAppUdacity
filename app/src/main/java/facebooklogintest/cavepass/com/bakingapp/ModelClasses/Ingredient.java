@@ -4,8 +4,7 @@ package facebooklogintest.cavepass.com.bakingapp.ModelClasses;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Ingredient implements Parcelable
-{
+public class Ingredient implements Parcelable {
 
     private float quantity;
     private String measure;
@@ -14,7 +13,7 @@ public class Ingredient implements Parcelable
 
 
         @SuppressWarnings({
-            "unchecked"
+                "unchecked"
         })
         public Ingredient createFromParcel(Parcel in) {
             return new Ingredient(in);
@@ -24,8 +23,7 @@ public class Ingredient implements Parcelable
             return (new Ingredient[size]);
         }
 
-    }
-    ;
+    };
 
     protected Ingredient(Parcel in) {
         this.quantity = ((float) in.readValue((Integer.class.getClassLoader())));
@@ -34,11 +32,9 @@ public class Ingredient implements Parcelable
     }
 
 
-
     public float getQuantity() {
         return quantity;
     }
-
 
 
     public String getMeasure() {
@@ -51,7 +47,6 @@ public class Ingredient implements Parcelable
     }
 
 
-
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(quantity);
         dest.writeValue(measure);
@@ -59,7 +54,7 @@ public class Ingredient implements Parcelable
     }
 
     public int describeContents() {
-        return  0;
+        return 0;
     }
 
 }

@@ -13,13 +13,12 @@ public class RecipeStepDetailAdapter extends RecyclerView.Adapter<StepsAdapter.M
 
     Context context;
 
-    RecipeStepDetailAdapter(Context context){
+    RecipeStepDetailAdapter(Context context) {
 
         this.context = context;
 
 
     }
-
 
 
     @Override
@@ -37,7 +36,7 @@ public class RecipeStepDetailAdapter extends RecyclerView.Adapter<StepsAdapter.M
         return 0;
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
         public MyViewHolder(View itemView) {
             super(itemView);
         }
