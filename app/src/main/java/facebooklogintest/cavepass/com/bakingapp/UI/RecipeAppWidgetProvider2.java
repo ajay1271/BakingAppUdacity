@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -20,49 +21,28 @@ public class RecipeAppWidgetProvider2 extends AppWidgetProvider {
 
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId) {
+        Log.e("Called","RecipeAppWidgetProvider.updateWidget()");
 
-        /*
+        Intent svcIntent = new Intent(context, RecipeWidgetUpdateService.class);
+        svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.row_recipe_list_widget);
-        views.setTextViewText(R.id.ingredient_Widget,""+ views.getLayoutId());
-
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+        RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget_provider2);
 
 
-/**/
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            Log.e("Called", "setRemoteAdapter()");
 
-        Log.e("Called", "RecipeAppWidgetProvider2");
-
-
-        // Instantiate the RemoteViews object for the app widget layout.
-        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.recipe_app_widget_provider2);
-        // Set up the RemoteViews object to use a RemoteViews adapter.
-        // This adapter connects
-        // to a RemoteViewsService  through the specified intent.
-        // This is how you populate the data.
-
-        Intent intent = new Intent(context, ListWidgetService.class);
-        // Add the app widget ID to the intent extras.
-
-        rv.setRemoteAdapter(appWidgetId, intent);
+            widget.setRemoteAdapter(R.id.list_widget, svcIntent);
+        }
+        else
+            widget.setRemoteAdapter(appWidgetId, R.id.list_widget, svcIntent);
 
 
-        // The empty view is displayed when the collection has no items.
-        // It should be in the same layout used to instantiate the RemoteViews
-        // object above.
-        //   rv.setEmptyView(R.id.list_view_widget, R.id);
-
-        //
-        // Do additional processing specific to this app widget...
-        //
-
-        appWidgetManager.updateAppWidget(appWidgetId, rv);
-
+        appWidgetManager.updateAppWidget(appWidgetId, widget);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list_widget);
 
     }
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
